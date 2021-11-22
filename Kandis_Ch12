@@ -1,0 +1,74 @@
+import os.path
+
+amount = 0.00
+balance = 0.00
+
+def deposit(balance):
+    f = open('Kandis_project.txt')
+    balance = f.readline()
+    print(balance)
+    print("Your balance is:\n", balance)
+    f.close()
+    
+    while True:
+        try:
+            amount = float(input("Deposit how much?"))
+        except:
+            print("Numeric values only")
+        balance = balance + amount    
+        print("Your balance is now:", ("{:.2f}".format(balance)))    
+            
+    f = open('Kandis_project.txt')
+    f.write(balance)
+def balanceInquiry(balance):
+    f = open('Kandis_project.txt')
+    balance = f.readline()
+    print(balance)
+    print("Your balance is:\n", balance)
+    f.close()
+    
+
+def withdraw(balance, amount):
+    amount = float(input("How much would you like to withdraw?"))
+    f = open('Kandis_project.txt','r')  
+    balance = f.read()  # read file text into a string
+    
+    if float(balance) < 100.00:
+        print("Low balance, less than 100 in account")
+    else:
+        print("")
+    f.close()        
+    f=open('Kandis_project.txt','w')
+    if balance < amount:
+        print("error")
+        withdraw()
+    else:
+        newb = (balance - amount)
+        f.write(str(newb))
+        balance=float(f.read())
+        f.close()
+        print(balance)
+
+def main():
+
+
+    print('* * * MENU * * *\n')
+    print('1. Deposit')
+    print('2. Balance Inquiry')
+    print('3. Withdraw')
+    print('4. Quit')
+
+    userchoice = input("What would you like to do today?")
+
+    if userchoice == "Deposit":
+        balance = 100
+        balance = deposit(balance)
+    elif userchoice == "Balance Inquiry":
+        balance = balanceInquiry(balance)
+    elif userchoice == "Withdraw":
+        withdraw(balance, amount)
+    else:
+
+        print("Thank you for choosing our ATM")
+        
+main()
